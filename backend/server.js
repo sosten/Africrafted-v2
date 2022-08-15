@@ -5,6 +5,7 @@ import cors from "cors";
 import fileUpload from "express-fileupload";
 import cookieParser from "cookie-parser";
 import userRouter from "./routers/userRouter.js";
+import categoryRouter from "./routers/categoryRouter.js";
 
 dotenv.config();
 const app = express();
@@ -16,6 +17,7 @@ app.use(fileUpload({ useTempFiles: true }));
 //Routes
 
 app.use("/api", userRouter);
+app.use("/category", categoryRouter);
 
 app.use((err, req, res) => {
   res.status(500).send({ message: err.message });

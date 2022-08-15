@@ -18,6 +18,8 @@ const userController = {
           const newUser = new User({
             name, email, password: hashPassword
           })
+          await newUser.save();
+          res.json({ message: "Registered successfully" });
 
           //jsonwebtoken to authentication
           const accessToken = createAccessToken({id: newUser._id});
@@ -26,10 +28,41 @@ const userController = {
             httpOnly: true,
             path: '/api/refresh_token'
           })
-          await newUser.save()
-      res.json({ message: "Registered successfully" });
+          res.json({accessToken})
+          
     } catch (error) {
       return res.status(500).json({ message: error.message });
+    }
+  },
+  login: async (req, res)=>{
+    try{
+      const { email, password } = req.body;
+      const user = await User.findOne({email});
+      if(!user) return res.status(400).json({message: "User does not exist"});
+      const isMatch = await bcrypt.compare(password, user.password);
+      if(!isMatch) return res.status(400).json({message: "Incorrect Password"});
+
+      //if login is successful create access and refresh tokens
+      // res.json({message: "Login Successfully!"});
+      const accessToken = createAccessToken({id: user._id});
+      const refreshtoken = createRefreshToken({id:user._id});
+        res.cookie('refreshtoken', refreshtoken, {
+          httpOnly: true,
+          path: '/api/refresh_token'
+        })
+        res.json({accessToken})
+      
+    } catch(err) {
+      return res.status(500).json({message: err.message});
+    }
+  },
+  logout: async (req, res)=>{
+    try {
+      res.clearCookie('refreshtoken', {path: '/api/refresh_token'});
+      return res.json({message: "Logout Successfully!"})
+      
+    } catch (err) {
+      res.status(500).json({message: err.message})
     }
   },
   refreshToken: (req, res)=>{
@@ -44,9 +77,19 @@ const userController = {
         // res.json({ref_token})
     }
     catch (err) {
-      return res.status(400).json({message: err.message})
+      return res.status(500).json({message: err.message})
     }
     
+  },
+  getUser: async (req, res)=>{
+    try {
+      const user = await User.findById(req.user.id).select("-password");
+      if(!user) return res.status(400).json({message: "User does not exist!"});
+      res.json(user)
+    } catch (err) {
+      res.status(500).json({message: err.message})
+      
+    }
   }
 };
 
