@@ -8,4 +8,8 @@ const categoryRouter = express.Router();
 categoryRouter.route("/category")
     .get(categoryController.getCategory)
     .post(auth, authAdmin, categoryController.createCategory)
+categoryRouter.route("/category:id")
+    .delete(auth, authAdmin, categoryController.deleteCategory)
+    .put(auth, authAdmin, categoryController.updateCategory)
+
 export default categoryRouter;

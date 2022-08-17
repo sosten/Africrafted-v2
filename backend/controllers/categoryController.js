@@ -17,6 +17,24 @@ createCategory: async (req, res) =>{
     } catch (err) {
         return res.status(500).json({message: err.message});
     }
+},
+deleteCategory: async (req, res) => {
+    try {
+        await Category.findByIdAndDelete(req.params.id)
+        res.json({message: "Category Deleted"})
+        
+    } catch (err) {
+        return res.status(500).json({message: err.message})
+    }
+},
+updateCategory: async (req, res) => {
+    try {
+        const { name } = req.body;
+        await Category.findOneAndUpdate({_id: req.params.id}, {name})
+        res.json({message: "Category Updated"});
+    } catch (err) {
+        return res.status(500).json({message: err.message});
+    }
 }
 }
 

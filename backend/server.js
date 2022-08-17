@@ -6,6 +6,8 @@ import fileUpload from "express-fileupload";
 import cookieParser from "cookie-parser";
 import userRouter from "./routers/userRouter.js";
 import categoryRouter from "./routers/categoryRouter.js";
+import uploadRouter from "./routers/upload.js";
+import productRouter from "./routers/productRouter.js";
 
 dotenv.config();
 const app = express();
@@ -17,7 +19,9 @@ app.use(fileUpload({ useTempFiles: true }));
 //Routes
 
 app.use("/api", userRouter);
-app.use("/category", categoryRouter);
+app.use("/api", productRouter);
+app.use("/api", categoryRouter);
+app.use("/api", uploadRouter);
 
 app.use((err, req, res) => {
   res.status(500).send({ message: err.message });

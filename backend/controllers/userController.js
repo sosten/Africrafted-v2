@@ -22,13 +22,13 @@ const userController = {
           res.json({ message: "Registered successfully" });
 
           //jsonwebtoken to authentication
-          const accessToken = createAccessToken({id: newUser._id});
+          const accesstoken = createAccessToken({id: newUser._id});
           const refreshtoken = createRefreshToken({id:newUser._id});
           res.cookie('refreshtoken', refreshtoken, {
             httpOnly: true,
             path: '/api/refresh_token'
           })
-          res.json({accessToken})
+          res.json({accesstoken})
           
     } catch (error) {
       return res.status(500).json({ message: error.message });
@@ -44,13 +44,13 @@ const userController = {
 
       //if login is successful create access and refresh tokens
       // res.json({message: "Login Successfully!"});
-      const accessToken = createAccessToken({id: user._id});
+      const accesstoken = createAccessToken({id: user._id});
       const refreshtoken = createRefreshToken({id:user._id});
         res.cookie('refreshtoken', refreshtoken, {
           httpOnly: true,
           path: '/api/refresh_token'
         })
-        res.json({accessToken})
+        res.json({accesstoken})
       
     } catch(err) {
       return res.status(500).json({message: err.message});
@@ -67,12 +67,12 @@ const userController = {
   },
   refreshToken: (req, res)=>{
     try{
-      const ref_token = req.cookies.refreshtoken;
+      const ref_token = req.cookies.refreshtoken; 
       if(!ref_token) return res.status(400).json({message: "Please Login or Register"});
       jwt.verify(ref_token, proccess.env.REFRESH_TOKEN_SECRET, (err, user)=>{
         if(err) return res.status(400).json({message: "Please Login or Register"});
-        const accesstoken = createToken({id: user.id})
-        res.json(user, accesstoken)
+        const accesstoken = createAccessToken({id: user.id})
+        res.json(user, accesstoken) 
       })
         // res.json({ref_token})
     }
