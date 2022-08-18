@@ -1,12 +1,13 @@
 import express from "express";
+import productController from "../controllers/productController.js";
 
-productRouter = express.Router();
+const productRouter = express.Router();
 
-productRouter.route('/products')
-    .get()
-    .post()
+productRouter.route('/product')
+    .get(productController.getProduct)
+    .post(productController.createProduct)
 productRouter.route('/product/:id')
-    .delete()
-    .put()
+    .delete(productController.deleteProduct)
+    .put(productController.updateProduct)
 
 export default productRouter;

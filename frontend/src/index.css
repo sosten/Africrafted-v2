@@ -7,7 +7,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.app {
+  max-width: 1300px;
+  width: 100%;
+  margin: 0 auto;
+  min-height: 100vh;
+  padding: 0 20px;
 }
+
+/* ------------ Header ---------------- */
+@import url('./components/Header/Header.css');
