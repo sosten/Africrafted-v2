@@ -1,0 +1,37 @@
+header {
+    min-height: 70px;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+}
+
+header .logo {
+    flex: 1;
+}
+
+header a {
+    text-decoration: none;
+    display: inline-block;
+    color: #333;
+    opacity: 0.8;
+}
+
+header a:hover {
+    opacity: 1;
+}
+
+ul li {
+    padding: 0 20px;
+    list-style: none;
+    font-size: 16px;
+    font-weight: 500;
+    display: inline;
+}
+
+.menu-icon, .times-icon {
+    display: none;
+}

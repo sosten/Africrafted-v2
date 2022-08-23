@@ -1,35 +1,79 @@
 import React, { useState, useContext } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
 import { GlobalState } from "../../GlobalState";
 import { AiOutlineMenu } from "react-icons/ai";
 import { FaTimes } from "react-icons/fa";
 import { BsCart4 } from "react-icons/bs";
 
 const Header = () => {
-    return (
-        <header>
-            <div className="menu">
-                <AiOutlineMenu className="menu-icon"/>
-            </div>
-            <div className="logo">
-                <h1>
-                    <Link>Africrafted</Link>
-                </h1>
-            </div>
-            <ul>
-                <li><Link to="/">Products</Link></li>
-                <li><Link to="/login">Login | Register</Link></li>
 
-                <li><FaTimes className="times-icon"/></li>
+    const state = useContext(GlobalState);
+    const [ isLoggedIn, setIsLoggedIn ] = state.userAPI.isLoggedIn;
+    const [ isAdmin, setIsAdmin ] = state.userAPI.isAdmin;
 
-                <div className="cart-icon">
-                    <span>0</span>
-                    <Link>
-                        <BsCart4 className="shopping-cart-icon" />
-                    </Link>
-                </div>
-            </ul>
-        </header>
-    )
-}
+    const logoutUser = async () => {
+      await axios.get('/api/logout')
+      localStorage.clear()
+      setIsAdmin(false)
+      setIsLoggedIn(false)
+    }
 
-export default Header; 
+
+    const adminRouter = () => {
+      return(
+        <>
+          <li><Link to={'/create_product'}>Create Product</Link></li>
+          <li><Link to={'/category'}>Categories</Link></li>
+        </>
+      )
+    }
+
+    const loggedInRouter = () => {
+      return(
+        <>
+          <li><Link to={'/history'}>History</Link></li>
+          <li><Link to={'/'} onClick={logoutUser}>Logout</Link></li>
+        </>
+      )
+    }
+
+  return (
+    <header>
+      <div className="menu">
+        <AiOutlineMenu className="menu-icon" />
+      </div>
+      <div className="logo">
+        <h1>
+          <Link to="/">{isAdmin ? "Admin" : "Africrafted"}</Link>
+        </h1>
+      </div>
+      <ul>
+        <li>
+          <Link to="/">{isAdmin ? "Products" : "Shop"}</Link>
+        </li>
+        { isAdmin && adminRouter() }
+        { isLoggedIn ? loggedInRouter() : 
+          <li>
+            <Link to="/login">Login | Register</Link>
+          </li>
+        }
+
+        <li>
+          <FaTimes className="times-icon" />
+        </li>
+        
+      </ul>
+      { isAdmin ? "" : 
+        <div className="cart-icon">
+          <span>0</span>
+          <Link to="/cart">
+            <BsCart4 className="shopping-cart-icon" />
+          </Link>
+        </div>
+        }
+    </header>
+  );
+};
+
+export default Header;
