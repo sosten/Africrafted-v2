@@ -9,14 +9,14 @@ import { BsCart4 } from "react-icons/bs";
 const Header = () => {
 
     const state = useContext(GlobalState);
-    const [ isLoggedIn, setIsLoggedIn ] = state.userAPI.isLoggedIn;
-    const [ isAdmin, setIsAdmin ] = state.userAPI.isAdmin;
+    const [ isLoggedIn ] = state.userAPI.isLoggedIn;
+    const [ isAdmin ] = state.userAPI.isAdmin;
+    const [ cart ] = state.userAPI.cart;
 
     const logoutUser = async () => {
       await axios.get('/api/logout')
       localStorage.clear()
-      setIsAdmin(false)
-      setIsLoggedIn(false)
+      window.location.href="/";
     }
 
 
@@ -66,7 +66,7 @@ const Header = () => {
       </ul>
       { isAdmin ? "" : 
         <div className="cart-icon">
-          <span>0</span>
+          <span>{ cart.length }</span>
           <Link to="/cart">
             <BsCart4 className="shopping-cart-icon" />
           </Link>

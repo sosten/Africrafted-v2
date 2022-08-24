@@ -31,3 +31,6 @@
 
 /* ---------- Login ---------------- */
 @import url('./components/auth/Login.css');
+
+/* ----------- Cart ----------------- */
+@import url('./components/cart/Cart.css');

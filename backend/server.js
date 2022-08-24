@@ -8,6 +8,7 @@ import userRouter from "./routers/userRouter.js";
 import categoryRouter from "./routers/categoryRouter.js";
 import uploadRouter from "./routers/upload.js";
 import productRouter from "./routers/productRouter.js";
+import paymentRouter from "./routers/paymentRouter.js";
 
 dotenv.config();
 const app = express();
@@ -22,6 +23,7 @@ app.use("/api", userRouter);
 app.use("/api", productRouter);
 app.use("/api", categoryRouter);
 app.use("/api", uploadRouter);
+app.use("/api", paymentRouter);
 
 app.use((err, req, res) => {
   res.status(500).send({ message: err.message });
