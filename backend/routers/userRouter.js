@@ -10,5 +10,6 @@ userRouter.get('/logout', userController.logout);
 userRouter.get('/refresh_token', userController.refreshToken);
 userRouter.get('/infor', auth, userController.getUser);
 userRouter.patch('/add_to_cart', auth, userController.addToCart);
+userRouter.get('/history', auth, userController.history);
 
 export default userRouter; 

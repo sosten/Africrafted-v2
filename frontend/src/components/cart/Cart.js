@@ -1,5 +1,4 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { GlobalState } from '../../GlobalState';
 import axios from 'axios';
 import PayPalButton from "./PayPal";
@@ -23,7 +22,7 @@ const Cart = () => {
     getTotal();
   },[cart])
 
-  const addToCart = async () => {
+  const addToCart = async (cart) => {
     await axios.patch('/api/add_to_cart', {cart}, {
       headers: {Authorization: token}
     })
@@ -36,7 +35,7 @@ const Cart = () => {
       }
     })
     setCart([...cart])
-    addToCart()
+    addToCart(cart)
   }
 
   const decrement = (id) => {
@@ -46,7 +45,7 @@ const Cart = () => {
       }
     })
     setCart([...cart])
-    addToCart()
+    addToCart(cart)
   }
 
   const removeProduct = (id) => {
@@ -58,12 +57,21 @@ const Cart = () => {
       })
 
       setCart([...cart])
-      addToCart()
+      addToCart(cart)
     }
   }
 
   const tranSuccess = async (payment) => {
-    console.log(payment)
+
+    const {paymentID, address} = payment;
+
+    await axios.post('/api/payment', {cart, paymentID, address},
+      {headers: {Authorization: token}}
+    );
+
+    setCart([]);
+    addToCart([]);
+    alert("You've successfully placed an order.");
   }
 
   if(cart.length === 0){

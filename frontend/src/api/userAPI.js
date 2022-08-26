@@ -4,7 +4,8 @@ import axios from "axios";
 const userAPI = (token) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [cart, setCart] = useState([])
+  const [cart, setCart] = useState([]);
+  const [history, setHistory] = useState([]);
 
   useEffect(() => {
     if (token) {
@@ -24,6 +25,26 @@ const userAPI = (token) => {
       getUser();
     }
   }, [token]);
+
+  useEffect(()=>{
+    if(token){
+      const getHistory = async () => {
+        if(isAdmin){
+            const res = await axios.get('/api/payment', {
+              headers: {Authorization: token}
+          })
+          setHistory(res.data)
+        }else{
+          const res = await axios.get('/api/history', { //for user change api to user
+            headers: {Authorization: token}
+        })
+        setHistory(res.data)
+        }
+        
+      }
+      getHistory();
+    }
+  }, [token, callback, isAdmin])
 
   const addToCart = async (product) => {
     if(!isLoggedIn) return alert("You have to login to continue shopping");
@@ -45,7 +66,8 @@ const userAPI = (token) => {
     isLoggedIn: [isLoggedIn, setIsLoggedIn],
     isAdmin: [isAdmin, setIsAdmin],
     cart: [cart, setCart],
-    addToCart: addToCart
+    addToCart: addToCart,
+    history: [history, setHistory]
   };
 };
 

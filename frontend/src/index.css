@@ -34,3 +34,12 @@
 
 /* ----------- Cart ----------------- */
 @import url('./components/cart/Cart.css');
+
+/* --------------- Order History --------- */
+@import url('./components/history/History.css');
+
+/* -------------- Categories --------------- */
+@import url('./components/categories/Categories.css');
+
+/* ------------- Create Product --------------- */
+@import url('./components/createProduct/CreateProduct.css');

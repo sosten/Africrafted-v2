@@ -1,4 +1,5 @@
 import User from "../models/userModel.js";
+import Payment from "../models/paymentModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -111,14 +112,23 @@ const userController = {
       return res.status(500).json({ message: err.message });
     }
   },
+  history: async (req, res) => {
+    try {
+      const history = await Payment.find({user_id: req.user.id})
+      res.json(history)
+      
+    } catch (err) {
+      return res.status(500).json({ message: error.message });
+    }
+  }
 };
 
 const createAccessToken = (user) => {
-  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1d" });
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "17s" });
 };
 
 const createRefreshToken = (user) => {
-  return jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "7d" });
+  return jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "1d" });
 };
 
 export default userController;

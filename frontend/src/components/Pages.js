@@ -7,16 +7,25 @@ import Login from "./auth/Login";
 import Register from './auth/Register';
 import Cart from './cart/Cart';
 import NotFound from './utils/NotFound';
+import OrderHistory from './history/OrderHistory';
+import OrderDetails from './history/OrderDetails';
+import Categories from './categories/Categories';
+import CreateProduct from './createProduct/CreateProduct';
 
 const Pages = () => {
   const state = useContext(GlobalState);
   const [isLoggedIn] = state.userAPI.isLoggedIn;
+  const [isAdmin] = state.userAPI.isAdmin;
   
   return (
     <Routes>
         <Route path='/' element={<Product />} />
         <Route path='/login' element={isLoggedIn ? <NotFound /> : <Login /> }/>
         <Route path='/register' element={isLoggedIn ? <NotFound /> : <Register />}/>
+        <Route path='/category' element={isAdmin ? <Categories /> : <NotFound />}/>
+        <Route path='/product' element={isAdmin ? <CreateProduct /> : <NotFound />}/>
+        <Route path='/history' element={isLoggedIn ? <OrderHistory /> : <NotFound /> }/>
+        <Route path='/history/:id' element={isLoggedIn ? <OrderDetails /> : <NotFound /> }/>
         <Route path='/cart' element={<Cart />} />
         <Route path='/detail/:id' element={<DetailProduct />} />
 

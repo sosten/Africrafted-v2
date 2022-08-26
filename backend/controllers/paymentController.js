@@ -24,12 +24,22 @@ const paymentController = {
                 user_id: _id, name, email, cart, paymentID, address
             })
 
-            req.json(newPayment)
+            cart.filter(item => {
+                return sold(item._id, item.quantity, item.sold)
+            })
+
+            await newPayment.save()
+            req.json("Payment successfully done");
 
         } catch (err) {
             return res.status(500).json({message: err.message})
         }
     }
+    
+    }
+
+    const sold = async(id, quantity, oldSold)=>{
+        await Product.findOneAndUpdate({_id: id}, {sold: quantity + oldSold})
 }
 
 export default paymentController;

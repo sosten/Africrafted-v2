@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { GlobalState } from "../../GlobalState";
@@ -15,7 +15,6 @@ const Header = () => {
 
     const logoutUser = async () => {
       await axios.get('/api/logout')
-      localStorage.clear()
       window.location.href="/";
     }
 
