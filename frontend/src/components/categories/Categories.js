@@ -68,7 +68,7 @@ const Categories = () => {
                         <p>{category.name}</p>
                         <div>
                             <button onClick={()=> editCategory(category._id, category.name)}>Edit</button>
-                            <button onClick={()=> deleteCategory(category_id)}>Delete</button>
+                            <button onClick={()=> deleteCategory(category._id)}>Delete</button>
                         </div>
 
                     </div>

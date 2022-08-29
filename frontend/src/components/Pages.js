@@ -14,8 +14,8 @@ import CreateProduct from './createProduct/CreateProduct';
 
 const Pages = () => {
   const state = useContext(GlobalState);
-  const [isLoggedIn] = state.userAPI.isLoggedIn;
-  const [isAdmin] = state.userAPI.isAdmin;
+  const [isLoggedIn] = state.UserAPI.isLoggedIn;
+  const [isAdmin] = state.UserAPI.isAdmin;
   
   return (
     <Routes>

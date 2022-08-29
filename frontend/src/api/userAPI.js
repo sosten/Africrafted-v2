@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const userAPI = (token) => {
+const UserAPI = (token) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [cart, setCart] = useState([]);
@@ -44,7 +44,7 @@ const userAPI = (token) => {
       }
       getHistory();
     }
-  }, [token, callback, isAdmin])
+  }, [token, isAdmin])
 
   const addToCart = async (product) => {
     if(!isLoggedIn) return alert("You have to login to continue shopping");
@@ -71,4 +71,4 @@ const userAPI = (token) => {
   };
 };
 
-export default userAPI;
+export default UserAPI;

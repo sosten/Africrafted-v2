@@ -9,12 +9,15 @@ import { BsCart4 } from "react-icons/bs";
 const Header = () => {
 
     const state = useContext(GlobalState);
-    const [ isLoggedIn ] = state.userAPI.isLoggedIn;
-    const [ isAdmin ] = state.userAPI.isAdmin;
-    const [ cart ] = state.userAPI.cart;
+    const [ isLoggedIn ] = state.UserAPI.isLoggedIn;
+    const [ isAdmin ] = state.UserAPI.isAdmin;
+    const [ cart ] = state.UserAPI.cart;
 
     const logoutUser = async () => {
-      await axios.get('/api/logout')
+      await axios.get('/api/logout');
+
+      localStorage.removeItem('firstLogin');
+
       window.location.href="/";
     }
 

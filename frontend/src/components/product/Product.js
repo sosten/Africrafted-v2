@@ -5,8 +5,8 @@ import LoadingSpinner from "../utils/Loading";
 
 const Product = () => {
   const state = useContext(GlobalState);
-  const [product] = state.productAPI.product;
-  const [isAdmin] = state.userAPI.isAdmin;
+  const [product] = state.ProductAPI.product;
+  const [isAdmin] = state.UserAPI.isAdmin;
 
   return (
     <>

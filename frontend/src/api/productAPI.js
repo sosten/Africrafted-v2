@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from "axios";
 
-const productAPI = () => {
+const ProductAPI = () => {
     const [product, setProduct] = useState([]);
 
     const getProduct = async ()=> {
@@ -18,4 +18,4 @@ const productAPI = () => {
   }
 }
 
-export default productAPI;
+export default ProductAPI;

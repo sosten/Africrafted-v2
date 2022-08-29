@@ -18,6 +18,9 @@ const Register = () => {
     e.preventDefault();
 
     await axios.post("/api/register", { ...user });
+
+    localStorage.setItem('firstLogin', true);
+
     window.location.href = "/";
 
     try {
