@@ -1,11 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import BtnRender from "./BtnRender";
 
-const ProductItem = ({ product, isAdmin }) => {
+const ProductItem = ({ product, isAdmin, deleteProduct, handleCheck }) => {
+
+  
+
   return (
     <div className="product_card">
-      {isAdmin && <input type={"checkbox"} checked={product.checked} />}
+      {isAdmin && <input type={"checkbox"} checked={product.checked} onChange={() => handleCheck(product._id)} />}
       <img src={product.images.url} alt="" />
 
       <div className="product_box">
@@ -14,7 +16,7 @@ const ProductItem = ({ product, isAdmin }) => {
         <p>{product.description}</p>
       </div>
 
-      <BtnRender product={product} />
+      <BtnRender product={product} deleteProduct={deleteProduct} />
       {/* <div className="row_btn">
         <Link to="#" id='btn_buy'>Buy</Link>
         <Link to={`/detail/${product._id}`} id='btn_view'>View</Link>

@@ -9,3 +9,28 @@
 /* ---------- ProductItem --------- */
 
 @import url('../utils/ProductItem.css');
+
+.delete_all {
+    text-align: center;
+    margin: 20px;
+}
+
+.delete_all input {
+    height: 25px;
+    width: 25px;
+    transform: translateY(5px);
+    margin: 0 15px;
+}
+
+.delete_all span {
+    text-transform: uppercase;
+    color: #555;
+    letter-spacing: 1.3px;
+}
+
+.delete_all button {
+    border: 1px solid #5555;
+    padding: 10px 25px;
+    color: #fff;
+    text-transform: uppercase;
+}

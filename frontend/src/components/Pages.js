@@ -23,7 +23,8 @@ const Pages = () => {
         <Route path='/login' element={isLoggedIn ? <NotFound /> : <Login /> }/>
         <Route path='/register' element={isLoggedIn ? <NotFound /> : <Register />}/>
         <Route path='/category' element={isAdmin ? <Categories /> : <NotFound />}/>
-        <Route path='/product' element={isAdmin ? <CreateProduct /> : <NotFound />}/>
+        <Route path='/create_product' element={isAdmin ? <CreateProduct /> : <NotFound />}/>
+        <Route path='/edit_product/:id' element={isAdmin ? <CreateProduct /> : <NotFound />}/>
         <Route path='/history' element={isLoggedIn ? <OrderHistory /> : <NotFound /> }/>
         <Route path='/history/:id' element={isLoggedIn ? <OrderDetails /> : <NotFound /> }/>
         <Route path='/cart' element={<Cart />} />
