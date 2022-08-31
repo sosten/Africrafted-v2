@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { GlobalState } from "../../GlobalState";
@@ -12,6 +12,7 @@ const Header = () => {
     const [ isLoggedIn ] = state.UserAPI.isLoggedIn;
     const [ isAdmin ] = state.UserAPI.isAdmin;
     const [ cart ] = state.UserAPI.cart;
+    const [menu, setMenu] = useState(false);
 
     const logoutUser = async () => {
       await axios.get('/api/logout');
@@ -40,9 +41,13 @@ const Header = () => {
       )
     }
 
+    const styleMenu = {
+      left: menu ? 0 : "-100%"
+    }
+
   return (
     <header>
-      <div className="menu">
+      <div className="menu" onClick={() => setMenu(!menu)}>
         <AiOutlineMenu className="menu-icon" />
       </div>
       <div className="logo">
@@ -50,7 +55,7 @@ const Header = () => {
           <Link to="/">{isAdmin ? "Admin" : "Africrafted"}</Link>
         </h1>
       </div>
-      <ul>
+      <ul style={styleMenu}>
         <li>
           <Link to="/">{isAdmin ? "Products" : "Shop"}</Link>
         </li>
@@ -61,7 +66,7 @@ const Header = () => {
           </li>
         }
 
-        <li>
+        <li onClick={() => setMenu(!menu)}>
           <FaTimes className="times-icon" />
         </li>
         

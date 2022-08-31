@@ -3,6 +3,8 @@ import { GlobalState } from "../../GlobalState";
 import ProductItem from "../utils/ProductItem";
 import LoadingSpinner from "../utils/Loading";
 import axios from "axios";
+import Filters from "../filters/Filters";
+import LoadMore from "../filters/LoadMore";
 
 const Product = () => {
   const state = useContext(GlobalState);
@@ -44,14 +46,14 @@ const Product = () => {
   const checkAll = () => {
     product.forEach((product) => {
       product.checked = !isChecked
-    })
+    }) 
     setProduct([...product]);
     setIsChecked(!isChecked);
   }
 
   deleteAll = () => {
     product.forEach((product) => {
-      if(product.checked) deleteProduct(product._id)
+      if(product.checked) deleteProduct(product._id, product.images.public_id)
     })
   }
 
@@ -59,6 +61,7 @@ const Product = () => {
 
   return (
     <>
+      <Filters />
       {
         isAdmin &&
         <div className="delete_all">
@@ -80,6 +83,7 @@ const Product = () => {
           );
         })}
       </div>
+      <LoadMore />
       {product.length === 0 && <LoadingSpinner />}
     </>
   );
